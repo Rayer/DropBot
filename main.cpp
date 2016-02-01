@@ -10,6 +10,11 @@
 namespace po = boost::program_options;
 using namespace std;
 
+class foo {
+public:
+    foo(std::initializer_list<float> list);
+};
+
 int main(int ac, char* av[])
 {
     try {
@@ -21,6 +26,7 @@ int main(int ac, char* av[])
                 ;
 
         po::variables_map vm;
+
         po::store(po::parse_command_line(ac, av, desc), vm);
         po::notify(vm);
 
