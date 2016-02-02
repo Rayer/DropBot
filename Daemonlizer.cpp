@@ -31,12 +31,15 @@ int Daemonlizer::_daemon_flow(int argc, char **argv) {
         kill(pid, 9);
     }
 
-    process_id = fork();
+    if (DAEMON) {
+        process_id = fork();
 
-
-    if (process_id < 0) {
-        printf("fork failed\n");
-        exit(1);
+        if (process_id < 0) {
+            printf("fork failed\n");
+            exit(1);
+        }
+    } else {
+        process_id = getpid();
     }
 
 
@@ -49,17 +52,21 @@ int Daemonlizer::_daemon_flow(int argc, char **argv) {
         this->create_pid_file(process_id);
         printf("process_id of child process %d \n", process_id);
         this->application_main(argc, argv);
-        exit(0);
+        if (DAEMON)
+            exit(0);
     }
 
     //this->_init_child();
 
     umask(0);
-    sid = setsid();
-    if (sid < 0) {
-        printf("Set SID failed\n");
-        exit(1);
+    if (DAEMON) {
+        sid = setsid();
+        if (sid < 0) {
+            printf("Set SID failed\n");
+            exit(1);
+        }
     }
+
 
 
     //close(STDIN_FILENO);

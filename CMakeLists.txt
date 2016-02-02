@@ -14,4 +14,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h Daemonlizer.h Daemonlizer.cpp SignalHandler.cpp SignalHandler.h)
 add_executable(DropBot ${SOURCE_FILES})
+add_executable(DropBot_Single ${SOURCE_FILES})
+target_compile_definitions(DropBot PRIVATE)
+target_compile_definitions(DropBot_Single PRIVATE SINGLE_STEP)
 #target_link_libraries(DropBot ${Boost_LIBRARIES})

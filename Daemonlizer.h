@@ -12,8 +12,18 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+// Globals and settings
 #define PID_DIR "/tmp/"
 #define APP_NAME "dropbot"
+
+//#define SINGLE_STEP
+
+#ifdef SINGLE_STEP
+const bool DAEMON = false;
+#else
+const bool DAEMON = true;
+#endif
+
 
 class Daemonlizer {
 private:
