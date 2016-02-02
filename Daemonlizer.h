@@ -10,6 +10,7 @@
 #include "Daemonlizer.h"
 #include <unistd.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 
 class DefaultContext {
 private:
