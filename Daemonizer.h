@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <string>
-#include "Daemonlizer.h"
+#include "Daemonizer.h"
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -25,7 +25,7 @@ const bool DAEMON = true;
 #endif
 
 
-class Daemonlizer {
+class Daemonizer {
 private:
     int _daemon_flow(int argc, char *argv[]);
 
@@ -53,7 +53,7 @@ public:
 
     int run(int argc, char *argv[]);
 
-    virtual ~Daemonlizer();
+    virtual ~Daemonizer();
 
 };
 

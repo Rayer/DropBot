@@ -2,7 +2,7 @@
 // Created by rayer on 2016/2/2.
 //
 
-#include "Daemonlizer.h"
+#include "Daemonizer.h"
 #include <fstream>
 #include <iostream>
 
@@ -14,17 +14,15 @@
 
 using namespace std;
 
-int Daemonlizer::_daemon_flow(int argc, char **argv) {
+int Daemonizer::_daemon_flow(int argc, char **argv) {
 
     pid_t process_id = 0;
     pid_t sid = 0;
 
     if (this->pid_file_exists()) {
         ifstream f(this->pid_file_name());
-        //string content(istreambuf_iterator<char>(f), istreambuf_iterator<char>());
-        string content = string(istreambuf_iterator<char>(f), istreambuf_iterator<char>());
+        string content{istreambuf_iterator<char>(f), istreambuf_iterator<char>()};
 
-        // string content("123");
         pid_t pid = stoi(content);
         cout << "PID file existed : " << pid << endl;
         cout << "Killing..." << endl;
@@ -86,18 +84,18 @@ int Daemonlizer::_daemon_flow(int argc, char **argv) {
 
 }
 
-int Daemonlizer::run(int argc, char **argv) {
+int Daemonizer::run(int argc, char **argv) {
     return _daemon_flow(argc, argv);
 }
 
-Daemonlizer::~Daemonlizer() { }
+Daemonizer::~Daemonizer() { }
 
-bool Daemonlizer::pid_file_exists() {
+bool Daemonizer::pid_file_exists() {
     struct stat buffer;
     return stat(this->pid_file_name().c_str(), &buffer) == 0;
 }
 
-string Daemonlizer::pid_file_name() {
+string Daemonizer::pid_file_name() {
     string ret;
     ret.append(PID_DIR);
     ret.append(APP_NAME);
@@ -105,11 +103,11 @@ string Daemonlizer::pid_file_name() {
     return ret;
 }
 
-void Daemonlizer::pid_file_delete() {
+void Daemonizer::pid_file_delete() {
     remove(pid_file_name().c_str());
 }
 
-void Daemonlizer::create_pid_file(pid_t pid) {
+void Daemonizer::create_pid_file(pid_t pid) {
     ofstream f(pid_file_name());
     printf("dump pid %d to file...\n", pid);
     f << pid;

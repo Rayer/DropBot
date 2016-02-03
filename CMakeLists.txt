@@ -12,7 +12,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 #    include_directories(${Boost_INCLUDE_DIRS})
 #endif()
 
-set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h Daemonlizer.h Daemonlizer.cpp SignalHandler.cpp SignalHandler.h)
+set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h Daemonizer.h Daemonizer.cpp SignalHandler.cpp SignalHandler.h)
 add_executable(DropBot ${SOURCE_FILES})
 add_executable(DropBot_Single ${SOURCE_FILES})
 target_compile_definitions(DropBot PRIVATE)
