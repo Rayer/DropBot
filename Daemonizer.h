@@ -16,8 +16,6 @@
 #define PID_DIR "/tmp/"
 #define APP_NAME "dropbot"
 
-//#define SINGLE_STEP
-
 #ifdef SINGLE_STEP
 const bool DAEMON = false;
 #else
@@ -28,6 +26,8 @@ const bool DAEMON = true;
 class Daemonizer {
 private:
     int _daemon_flow(int argc, char *argv[]);
+    void handle_signal(int signal);
+    bool is_daemon = true;
 
 
 protected:
@@ -50,6 +50,8 @@ public:
      * It's daemon logic
      */
     virtual int daemon_main() = 0;
+
+    void set_daemon(bool isDaemon);
 
     int run(int argc, char *argv[]);
 

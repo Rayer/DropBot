@@ -12,7 +12,6 @@ class SampleDaemon : public Daemonizer {
 
 public:
     virtual int application_main(int argc, char **argv);
-
     virtual int daemon_main();
 };
 

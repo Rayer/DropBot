@@ -29,7 +29,7 @@ int Daemonizer::_daemon_flow(int argc, char **argv) {
         kill(pid, 9);
     }
 
-    if (DAEMON) {
+    if (this->is_daemon) {
         process_id = fork();
 
         if (process_id < 0) {
@@ -38,6 +38,7 @@ int Daemonizer::_daemon_flow(int argc, char **argv) {
         }
     } else {
         process_id = getpid();
+        cout << "Single step mode, fork is omitted." << endl;
     }
 
 
@@ -65,11 +66,14 @@ int Daemonizer::_daemon_flow(int argc, char **argv) {
         }
     }
 
+#ifdef SEIZE_STD
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+#endif
 
-
-    //close(STDIN_FILENO);
-    //close(STDOUT_FILENO);
-    //close(STDERR_FILENO);
+    //Registering signal callback
+    //signal(SIGINT, this->*handle_signal);
 
     //Daemon Logic Here.....
     int ret = 0;
@@ -114,3 +118,13 @@ void Daemonizer::create_pid_file(pid_t pid) {
     f.flush();
     f.close();
 }
+
+void Daemonizer::handle_signal(int signal) {
+    cout << "Handling signal : " << signal << endl;
+}
+
+void Daemonizer::set_daemon(bool isDaemon) {
+    this->is_daemon = isDaemon;
+}
+
+

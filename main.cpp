@@ -4,15 +4,32 @@
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "SampleDaemon.h"
-
+#include <iostream>
+#include <boost/program_options.hpp>
 /* The simplest usage of the library.
  */
 
+namespace po = boost::program_options;
 
 int main(int ac, char* av[])
 {
+    po::options_description desc("Allowed options");
+    desc.add_options()
+            ("help", "produce help message")
+            ("non-daemon", "Run blocking mode")
+            ("remove-daemon", "Single Mode");
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(ac, av, desc), vm);
+    po::notify(vm);
+
+    if(vm.count("help")) {
+        std::cout << desc << std::endl;
+        exit(0);
+    }
 
     SampleDaemon *s = new SampleDaemon();
+    s->set_daemon(vm.count("non-daemon") == 0);
     s->run(ac, av);
     return 0;
 }
