@@ -16,12 +16,6 @@
 #define PID_DIR "/tmp/"
 #define APP_NAME "dropbot"
 
-#ifdef SINGLE_STEP
-const bool DAEMON = false;
-#else
-const bool DAEMON = true;
-#endif
-
 
 class Daemonizer {
 private:

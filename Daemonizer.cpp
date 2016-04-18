@@ -51,14 +51,14 @@ int Daemonizer::_daemon_flow(int argc, char **argv) {
         this->create_pid_file(process_id);
         printf("process_id of child process %d \n", process_id);
         this->application_main(argc, argv);
-        if (DAEMON)
+        if (this->is_daemon)
             exit(0);
     }
 
     //this->_init_child();
 
     umask(0);
-    if (DAEMON) {
+    if (this->is_daemon) {
         sid = setsid();
         if (sid < 0) {
             printf("Set SID failed\n");

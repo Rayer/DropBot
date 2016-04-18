@@ -16,6 +16,5 @@ endif()
 
 set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h Daemonizer.h Daemonizer.cpp SignalHandler.cpp SignalHandler.h)
 add_executable(DropBot ${SOURCE_FILES})
-add_executable(DropBot_Single ${SOURCE_FILES})
 target_compile_definitions(DropBot PRIVATE)
 target_link_libraries(DropBot ${Boost_LIBRARIES})
