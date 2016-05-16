@@ -17,7 +17,9 @@ int main(int ac, char* av[])
     desc.add_options()
             ("help", "produce help message")
             ("non-daemon", "Run blocking mode")
-            ("remove-daemon", "Single Mode");
+            ("terminate", "Terminate existing DropBot daemon(s)")
+            ("daemon-status", "Show current daemon(s) and its status");
+
 
     po::variables_map vm;
     po::store(po::parse_command_line(ac, av, desc), vm);
