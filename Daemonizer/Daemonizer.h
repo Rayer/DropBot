@@ -45,6 +45,8 @@ public:
      */
     virtual int daemon_main() = 0;
 
+    int get_daemon_count();
+
     void set_daemon(bool isDaemon);
 
     int run(int argc, char *argv[]);

@@ -127,4 +127,10 @@ void Daemonizer::set_daemon(bool isDaemon) {
     this->is_daemon = isDaemon;
 }
 
+int Daemonizer::get_daemon_count() {
+    return 0;
+}
+
+
+
 

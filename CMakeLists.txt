@@ -14,7 +14,18 @@ else(Boost_FOUND)
     message("No boost found!")
 endif()
 
-set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h Daemonizer.h Daemonizer.cpp SignalHandler.cpp SignalHandler.h)
+set(DAEMONIZER
+        Daemonizer/Daemonizer.h Daemonizer/Daemonizer.cpp Daemonizer/InstanceStrategy.h
+        Daemonizer/MultipleInstancePidStrategy.cpp
+        Daemonizer/MultipleInstancePidStrategy.h
+        Daemonizer/PidInstanceStrategy.cpp
+        Daemonizer/PidInstanceStrategy.h
+        Daemonizer/SingleInstancePidStrategy.cpp
+        Daemonizer/SingleInstancePidStrategy.h)
+
+set(SOURCE_FILES main.cpp SampleDaemon.cpp SampleDaemon.h)
+
+add_library(Daemonizer ${DAEMONIZER})
 add_executable(DropBot ${SOURCE_FILES})
 target_compile_definitions(DropBot PRIVATE)
-target_link_libraries(DropBot ${Boost_LIBRARIES})
+target_link_libraries(DropBot Daemonizer ${Boost_LIBRARIES})
